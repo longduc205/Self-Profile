@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duc's Quest — RPG Portfolio</title>
+  <meta name="description" content="An RPG-style interactive portfolio — explore the adventurer's skills, quests, and story through a classic game menu interface." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/index-COyxgV4G.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BalsSgEz.css">
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- CRT OVERLAY (togglable) -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div id="crt-overlay" class="crt-overlay active">
+    <div class="crt-sweep"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SCREEN 1 — TITLE / START SCREEN -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="start-screen" class="screen active">
+    <div class="start-bg" style="background-image:url('/assets/background-C9sUaM_g.png')"></div>
+    <div class="start-content">
+      <h1 class="game-title" id="game-title">
+        <span class="title-line">DUC'S</span>
+        <span class="title-line accent">QUEST</span>
+      </h1>
+      <p class="subtitle" id="subtitle">~ An Adventurer's Portfolio ~</p>
+
+      <button id="btn-start" class="press-start-btn" aria-label="Start the game">
+        <span class="blink">▶ PRESS START</span>
+      </button>
+
+      <!-- Language + Settings row -->
+      <div class="start-options">
+        <button id="btn-lang" class="option-btn" aria-label="Toggle language">🌐 EN</button>
+        <button id="btn-sound" class="option-btn" aria-label="Toggle sound">🔇 SOUND</button>
+        <button id="btn-crt" class="option-btn" aria-label="Toggle CRT filter">📺 CRT</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SCREEN 2 — MAIN GAME MENU -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="menu-screen" class="screen">
+    <!-- Top status bar -->
+    <header class="top-bar pixel-border">
+      <div class="top-bar-left">
+        <span id="menu-title-text" class="top-title">MAIN MENU</span>
+      </div>
+      <div class="top-bar-right">
+        <button id="menu-btn-lang" class="mini-btn" aria-label="Toggle language">🌐</button>
+        <button id="menu-btn-sound" class="mini-btn" aria-label="Toggle sound">🔇</button>
+        <button id="menu-btn-crt" class="mini-btn" aria-label="Toggle CRT">📺</button>
+      </div>
+    </header>
+
+    <div class="menu-layout">
+      <!-- ─── LEFT COLUMN: Character Status ─── -->
+      <aside class="status-panel pixel-border" id="status-panel">
+        <div class="avatar-frame pixel-border-inner">
+          <img src="/assets/avatar-BhM4_Sgt.png" alt="Character avatar pixel art" id="avatar-img" />
+        </div>
+        <div class="char-info">
+          <h2 class="char-name" id="char-name">DUC</h2>
+          <p class="char-class" id="char-class">Lv.99 Full-Stack Dev</p>
+        </div>
+        <!-- Equipped Slots Grid -->
+        <div class="equipped-slots" id="equipped-slots">
+          <div class="equip-slot empty" id="slot-weapon" data-slot-type="weapon">
+            <span class="slot-icon">⚔️</span>
+            <div class="slot-tooltip">
+              <span class="tooltip-title" data-i18n="slot_weapon">Weapon</span>
+              <span class="tooltip-status" data-i18n="slot_empty">Empty Slot</span>
+            </div>
+          </div>
+          <div class="equip-slot empty" id="slot-armor" data-slot-type="armor">
+            <span class="slot-icon">🛡️</span>
+            <div class="slot-tooltip">
+              <span class="tooltip-title" data-i18n="slot_armor">Armor</span>
+              <span class="tooltip-status" data-i18n="slot_empty">Empty Slot</span>
+            </div>
+          </div>
+          <div class="equip-slot empty" id="slot-accessory" data-slot-type="accessory">
+            <span class="slot-icon">💍</span>
+            <div class="slot-tooltip">
+              <span class="tooltip-title" data-i18n="slot_accessory">Accessory</span>
+              <span class="tooltip-status" data-i18n="slot_empty">Empty Slot</span>
+            </div>
+          </div>
+        </div>
+        <!-- HP / MP Bars -->
+        <div class="bars">
+          <div class="bar-row">
+            <span class="bar-label">HP</span>
+            <div class="bar-track hp-track"><div class="bar-fill hp-fill" id="hp-fill" style="width:92%"></div></div>
+            <span class="bar-value" id="hp-value">920/1000</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">MP</span>
+            <div class="bar-track mp-track"><div class="bar-fill mp-fill" id="mp-fill" style="width:78%"></div></div>
+            <span class="bar-value" id="mp-value">780/1000</span>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label" id="stat-str-label">STR</span>
+            <span class="stat-value" id="stat-str">85</span>
+            <button class="stat-up" data-stat="str" aria-label="Increase STR">+</button>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label" id="stat-agi-label">AGI</span>
+            <span class="stat-value" id="stat-agi">72</span>
+            <button class="stat-up" data-stat="agi" aria-label="Increase AGI">+</button>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label" id="stat-int-label">INT</span>
+            <span class="stat-value" id="stat-int">95</span>
+            <button class="stat-up" data-stat="int" aria-label="Increase INT">+</button>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label" id="stat-luk-label">LUK</span>
+            <span class="stat-value" id="stat-luk">60</span>
+            <button class="stat-up" data-stat="luk" aria-label="Increase LUK">+</button>
+          </div>
+        </div>
+        <p class="stat-points" id="stat-points">
+          SP: <span id="sp-count">5</span>
+          <button id="btn-reset-stats" class="stat-reset-btn" aria-label="Reset stats">↺ RESET</button>
+        </p>
+      </aside>
+
+      <!-- ─── MIDDLE COLUMN: Command List ─── -->
+      <nav class="command-panel pixel-border" id="command-panel" aria-label="Game menu commands">
+        <ul class="command-list">
+          <li><button class="cmd-btn active" data-cmd="status" id="cmd-status"><span class="cmd-cursor">▶</span> <span class="cmd-text" data-i18n="cmd_status">STATUS</span></button></li>
+          <li><button class="cmd-btn" data-cmd="skills" id="cmd-skills"><span class="cmd-cursor">▶</span> <span class="cmd-text" data-i18n="cmd_skills">EQUIP</span></button></li>
+          <li><button class="cmd-btn" data-cmd="quests" id="cmd-quests"><span class="cmd-cursor">▶</span> <span class="cmd-text" data-i18n="cmd_quests">QUESTS</span></button></li>
+          <li><button class="cmd-btn" data-cmd="log" id="cmd-log"><span class="cmd-cursor">▶</span> <span class="cmd-text" data-i18n="cmd_log">LOG</span></button></li>
+          <li><button class="cmd-btn" data-cmd="battle" id="cmd-battle"><span class="cmd-cursor">▶</span> <span class="cmd-text" data-i18n="cmd_battle">BATTLE</span></button></li>
+          <li><button class="cmd-btn" data-cmd="tavern" id="cmd-tavern"><span class="cmd-cursor">▶</span> <span class="cmd-text" data-i18n="cmd_tavern">TAVERN</span></button></li>
+        </ul>
+      </nav>
+
+      <!-- ─── RIGHT COLUMN: Content Area ─── -->
+      <main class="content-panel pixel-border" id="content-panel" aria-live="polite">
+
+        <!-- STATUS tab -->
+        <div class="tab-content active" id="tab-status">
+          <h3 class="tab-title" data-i18n="status_title">📜 Adventurer's Tale</h3>
+          <div class="typewriter-box" id="status-text">
+            <p data-i18n="status_p1">Greetings, traveler! I am <strong>Duc</strong>, a wandering Full-Stack Developer who has ventured through the vast realms of code since the ancient times.</p>
+            <p data-i18n="status_p2">My quest began in the Kingdom of Computer Science, where I forged my first weapons — HTML shields and CSS armor. Over the years, I mastered the arcane arts of JavaScript sorcery and conquered the dungeons of Backend engineering.</p>
+            <p data-i18n="status_p3">Today, I seek new adventures and worthy allies. Whether it be building enchanted web applications, slaying bugs in the darkest codebases, or crafting pixel-perfect interfaces — I am ready for the challenge!</p>
+          </div>
+
+          <!-- SYSTEM MEMORY Panel (Database Alternative) -->
+          <div class="system-save-panel pixel-border-inner">
+            <div class="panel-header">
+              <h4 class="panel-title">
+                <span class="save-icon">💾</span> 
+                <span data-i18n="system_memory_title">SYSTEM MEMORY</span>
+              </h4>
+              <div class="auto-save-indicator">
+                <span class="led-dot green pulse"></span>
+                <span class="led-text" data-i18n="auto_save_active">AUTO-SAVE</span>
+              </div>
+            </div>
+            <div class="save-actions">
+              <button class="save-btn export" id="btn-export-save">
+                <span data-i18n="save_export">EXPORT PROGRESS</span>
+              </button>
+              <button class="save-btn import" id="btn-import-save">
+                <span data-i18n="save_import">IMPORT PROGRESS</span>
+              </button>
+              <input type="file" id="save-file-input" accept=".json" style="display: none;" />
+              <button class="save-btn reset" id="btn-reset-save">
+                <span data-i18n="save_reset">RESET PROGRESS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SKILLS / EQUIP tab -->
+        <div class="tab-content" id="tab-skills">
+          <h3 class="tab-title" data-i18n="skills_title">⚔️ Equipment & Skills</h3>
+          <div class="equip-grid" id="equip-grid">
+            <div class="equip-card legendary" data-equip-id="react">
+              <span class="equip-icon">⚔️</span>
+              <span class="equip-name">React.js</span>
+              <span class="equip-rarity">★★★★★</span>
+              <span class="equip-type" data-i18n="eq_weapon">Weapon</span>
+            </div>
+            <div class="equip-card epic" data-equip-id="node">
+              <span class="equip-icon">🛡️</span>
+              <span class="equip-name">Node.js</span>
+              <span class="equip-rarity">★★★★☆</span>
+              <span class="equip-type" data-i18n="eq_armor">Armor</span>
+            </div>
+            <div class="equip-card epic" data-equip-id="typescript">
+              <span class="equip-icon">🏹</span>
+              <span class="equip-name">TypeScript</span>
+              <span class="equip-rarity">★★★★☆</span>
+              <span class="equip-type" data-i18n="eq_bow">Bow</span>
+            </div>
+            <div class="equip-card rare" data-equip-id="python">
+              <span class="equip-icon">🔮</span>
+              <span class="equip-name">Python</span>
+              <span class="equip-rarity">★★★☆☆</span>
+              <span class="equip-type" data-i18n="eq_spell">Spell</span>
+            </div>
+            <div class="equip-card rare" data-equip-id="docker">
+              <span class="equip-icon">💎</span>
+              <span class="equip-name">Docker</span>
+              <span class="equip-rarity">★★★☆☆</span>
+              <span class="equip-type" data-i18n="eq_gem">Gem</span>
+            </div>
+            <div class="equip-card uncommon" data-equip-id="git">
+              <span class="equip-icon">📜</span>
+              <span class="equip-name">Git</span>
+              <span class="equip-rarity">★★☆☆☆</span>
+              <span class="equip-type" data-i18n="eq_scroll">Scroll</span>
+            </div>
+            <div class="equip-card legendary" data-equip-id="next">
+              <span class="equip-icon">🗡️</span>
+              <span class="equip-name">Next.js</span>
+              <span class="equip-rarity">★★★★★</span>
+              <span class="equip-type" data-i18n="eq_weapon">Weapon</span>
+            </div>
+            <div class="equip-card epic" data-equip-id="postgresql">
+              <span class="equip-icon">🪄</span>
+              <span class="equip-name">PostgreSQL</span>
+              <span class="equip-rarity">★★★★☆</span>
+              <span class="equip-type" data-i18n="eq_wand">Wand</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUESTS tab -->
+        <div class="tab-content" id="tab-quests">
+          <h3 class="tab-title" data-i18n="quests_title">📋 Quest Board</h3>
+          <div class="quest-list" id="quest-list">
+            <div class="quest-item completed">
+              <div class="quest-header">
+                <span class="quest-status">✅</span>
+                <span class="quest-name">E-Commerce Kingdom</span>
+              </div>
+              <p class="quest-desc" data-i18n="quest1_desc">Built a full-stack e-commerce platform with payment integration, inventory management, and real-time order tracking.</p>
+              <div class="quest-rewards">
+                <span class="quest-tag" data-i18n="quest_completed">COMPLETED</span>
+                <a href="#" class="quest-link" data-i18n="quest_demo">▶ Demo</a>
+                <a href="#" class="quest-link" data-i18n="quest_github">⌂ Github</a>
+              </div>
+            </div>
+            <div class="quest-item completed">
+              <div class="quest-header">
+                <span class="quest-status">✅</span>
+                <span class="quest-name">Dashboard Fortress</span>
+              </div>
+              <p class="quest-desc" data-i18n="quest2_desc">Designed and developed an analytics dashboard with real-time data visualization, user management, and role-based access.</p>
+              <div class="quest-rewards">
+                <span class="quest-tag" data-i18n="quest_completed">COMPLETED</span>
+                <a href="#" class="quest-link" data-i18n="quest_demo">▶ Demo</a>
+                <a href="#" class="quest-link" data-i18n="quest_github">⌂ Github</a>
+              </div>
+            </div>
+            <div class="quest-item active-quest">
+              <div class="quest-header">
+                <span class="quest-status blink">⚡</span>
+                <span class="quest-name">AI Dragon Slayer</span>
+              </div>
+              <p class="quest-desc" data-i18n="quest3_desc">Currently building an AI-powered application that helps adventurers (users) navigate complex data landscapes with intelligent search.</p>
+              <div class="quest-rewards">
+                <span class="quest-tag active-tag" data-i18n="quest_active">IN PROGRESS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOG tab -->
+        <div class="tab-content" id="tab-log">
+          <h3 class="tab-title" data-i18n="log_title">📖 Adventure Log</h3>
+          <div class="timeline" id="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">2024 — <span data-i18n="log_present">Present</span></div>
+              <div class="timeline-content">
+                <h4 data-i18n="log1_title">Senior Developer — Tech Guild</h4>
+                <p data-i18n="log1_desc">Leading a party of developers on epic quests. Architecting large-scale web applications and mentoring junior adventurers.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2021 — 2024</div>
+              <div class="timeline-content">
+                <h4 data-i18n="log2_title">Full-Stack Developer — Digital Realm</h4>
+                <p data-i18n="log2_desc">Crafted numerous web applications using React, Node.js, and cloud technologies. Defeated many production bugs.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2017 — 2021</div>
+              <div class="timeline-content">
+                <h4 data-i18n="log3_title">Bachelor of Computer Science — The Academy</h4>
+                <p data-i18n="log3_desc">Studied the ancient arts of algorithms, data structures, and software engineering. Graduated with honors.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BATTLE tab -->
+        <div class="tab-content" id="tab-battle">
+          <h3 class="tab-title" data-i18n="battle_title">⚔️ Idle Battle Arena</h3>
+
+          <!-- Monster display area -->
+          <div class="battle-arena" id="battle-arena">
+            <div class="monster-display" id="monster-display">
+              <div class="monster-sprite" id="monster-sprite">🐛</div>
+              <div class="monster-info">
+                <div class="monster-name-row">
+                  <span class="monster-name" id="monster-name">Bug Slime</span>
+                  <span class="monster-tier common" id="monster-tier">Common</span>
+                </div>
+                <div class="monster-hp-bar">
+                  <div class="monster-hp-fill" id="monster-hp-fill" style="width:100%"></div>
+                </div>
+                <span class="monster-hp-text" id="monster-hp-text">150/150</span>
+              </div>
+            </div>
+
+            <!-- Combat stats summary -->
+            <div class="battle-stats" id="battle-stats">
+              <span class="battle-stat"><span class="bs-label">ATK</span> <span class="bs-value" id="battle-atk">85</span></span>
+              <span class="battle-stat"><span class="bs-label">DEF</span> <span class="bs-value" id="battle-def">0</span></span>
+              <span class="battle-stat"><span class="bs-label">DODGE</span> <span class="bs-value" id="battle-dodge">36%</span></span>
+              <span class="battle-stat"><span class="bs-label">CRIT</span> <span class="bs-value" id="battle-crit">60%</span></span>
+            </div>
+          </div>
+
+          <!-- Scrolling combat log terminal -->
+          <div class="combat-log" id="combat-log">
+            <div class="log-line system">
+              <span class="log-time">00:00</span>
+              <span class="log-text" data-i18n="battle_waiting">⏳ Awaiting orders... Enter the arena to begin!</span>
+            </div>
+          </div>
+
+          <!-- Battle controls -->
+          <div class="battle-controls">
+            <button class="battle-btn battle-toggle" id="btn-battle-toggle">
+              <span class="cmd-cursor">▶</span>
+              <span data-i18n="battle_start">⚔️ START BATTLE</span>
+            </button>
+            <div class="battle-score">
+              <span class="score-item"><span data-i18n="battle_kills">Kills</span>: <span id="kill-count" class="score-value">0</span></span>
+              <span class="score-divider">│</span>
+              <span class="score-item"><span data-i18n="battle_gold">Gold</span>: <span id="gold-count" class="score-value gold">0</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAVERN tab -->
+        <div class="tab-content" id="tab-tavern">
+          <h3 class="tab-title" data-i18n="tavern_title">🍺 Tavern — Message Board</h3>
+          <p class="tavern-intro" data-i18n="tavern_intro">Welcome to the Tavern! Leave a message on the board and I'll receive it by carrier pigeon (email).</p>
+          <form id="tavern-form" class="tavern-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="tavern-name" class="form-label" data-i18n="tavern_name_label">Your Name</label>
+              <input type="text" id="tavern-name" class="form-input pixel-input" placeholder="Brave Adventurer" required />
+            </div>
+            <div class="form-group">
+              <label for="tavern-email" class="form-label" data-i18n="tavern_email_label">Carrier Pigeon Address (Email)</label>
+              <input type="email" id="tavern-email" class="form-input pixel-input" placeholder="hero@realm.com" required />
+            </div>
+            <div class="form-group">
+              <label for="tavern-message" class="form-label" data-i18n="tavern_msg_label">Your Message</label>
+              <textarea id="tavern-message" class="form-input pixel-input textarea" rows="4" placeholder="Write your message here..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit cmd-btn" id="tavern-submit">
+              <span class="cmd-cursor">▶</span> <span data-i18n="tavern_send">SEND MESSAGE</span>
+            </button>
+          </form>
+
+          <!-- TAVERN BULLETIN BOARD (Wood wall & Parchment scrolls) -->
+          <div class="tavern-board pixel-border-inner" id="tavern-board">
+            <h4 class="board-title">
+              <span class="board-title-text" data-i18n="tavern_board_title">📌 TAVERN BULLETIN</span>
+            </h4>
+            <div class="scrolls-container" id="scrolls-container">
+              <!-- Parchment scrolls will be dynamically generated here -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bottom bar -->
+    <footer class="bottom-bar pixel-border">
+      <span id="footer-hint" data-i18n="footer_hint">Use the command menu to explore. Press [+] to allocate stat points!</span>
+    </footer>
+  </section>
+
+</body>
+</html>
